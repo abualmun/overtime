@@ -4,6 +4,7 @@ Systems:
 
 UI:
     ☐ change font
+    ☐ sounds
     Main menu:
         ☐ Game Title
         ☐ Play
@@ -27,3 +28,8 @@ UI:
 
 Effects:
     particle system:
+
+Sounds:
+    ☐ click
+    ☐ platform jump
+    

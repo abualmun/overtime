@@ -7,18 +7,13 @@ using Files = SimpleFileBrowser.FileBrowser;
 
 public class AudioManager : MonoBehaviour {
 
+    public List<Sound> sounds;
+
     private float audioValue;
     private static AudioClip clip;
 
-    public GameObject cube; // * Debug
-    public List<Transform> cubes = new List<Transform>(12); // * DEBUG
-
     void Start() {
         DontDestroyOnLoad(this);
-        // find a way to assign [clip] to audio processor
-        for (var i = 0; i < 12; i++) {
-            cubes.Add(Instantiate(cube.transform, transform.right * i, Quaternion.identity));
-        }
     }
 
     public void AssignAudioProcessor(AudioProcessor audioProcessor) {
@@ -39,13 +34,6 @@ public class AudioManager : MonoBehaviour {
 
         // max range is 11, the beat is in low spectrums
         audioValue = spectrum.ToList().GetRange(3, 6).Average();
-
-        // * Debug
-        for (int i = 0; i < spectrum.Length; ++i) {
-            Vector3 start = new Vector3(i, 0, 0);
-            Vector3 end = new Vector3(i, spectrum[i], 0);
-            cubes[i].localScale = new Vector3(0.5f, spectrum[i] * 5, 0.5f);
-        }
     }
 
     public void SelectMusic() {
@@ -64,4 +52,20 @@ public class AudioManager : MonoBehaviour {
         clip = audioClip;
     }
 
+    public void PlaySound(SoundsEnum sound) {
+        // enum to sound(sound)
+        // Play sound
+    }
+
 }
+
+[System.Serializable]
+public class Sound {
+    public string name;
+    public AudioSource audioSource;
+}
+
+public enum SoundsEnum {
+
+}
+
