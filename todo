@@ -1,0 +1,29 @@
+Systems:
+    ☐ sound system
+    ☐ sound effects
+
+UI:
+    ☐ change font
+    Main menu:
+        ☐ Game Title
+        ☐ Play
+        ☐ Select Music
+        ☐ credits
+        Effects:
+            ☐ lights syncing with music
+            ☐ flare/dust
+    InGame UI:
+        ☐ Score
+        ☐ max score
+    Pause Menu:
+        ☐ continue
+        ☐ quit
+    LoseMenu:
+        ☐ lose text/make random fortune
+        ☐ Score
+        ☐ max score
+        ☐ restart/play
+        ☐ quit
+
+Effects:
+    particle system:
