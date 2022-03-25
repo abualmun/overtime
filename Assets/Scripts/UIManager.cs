@@ -4,29 +4,25 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
-{
+public class UIManager : MonoBehaviour {
     public TMP_Text scoreText;
     public TMP_Text loseQuote;
     public TMP_Text loseScore;
     public GameObject loseMenu;
     private bool hasLost;
 
-    void Start()
-    {
+    void Start() {
         Input.backButtonLeavesApp = true;
     }
 
 
-    void Update()
-    {
+    void Update() {
         // update Score
 
         scoreText.text = ((int)GameManager.gameManager.score).ToString();
     }
 
-    public void Play()
-    {
+    public void Play() {
 
         Debug.Log("Playing");
         Input.backButtonLeavesApp = false;
@@ -35,48 +31,40 @@ public class UIManager : MonoBehaviour
         GameManager.gameManager.gameOver = false;
     }
 
-    public void Pause()
-    {
+    public void Pause() {
         Debug.Log("Pausing");
         GameManager.gameManager.TogglePause();
     }
 
-    public void Exit()
-    {
+    public void Exit() {
         Input.backButtonLeavesApp = true;
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void QuitGame()
-    {
+    public void QuitGame() {
         Application.Quit();
-        EditorApplication.ExitPlaymode();
+        // EditorApplication.ExitPlaymode();
     }
 
-    public void ShowMenu(GameObject menu)
-    {
+    public void ShowMenu(GameObject menu) {
         menu.SetActive(true);
     }
 
-    public void HideMenu(GameObject menu)
-    {
+    public void HideMenu(GameObject menu) {
         menu.SetActive(false);
     }
 
-    public void SetLoseQuote()
-    {
+    public void SetLoseQuote() {
         loseScore.text = ((int)GameManager.gameManager.score).ToString();
 
         loseQuote.text = Quoutes.GetRandomQuote();
     }
-    public void Lose()
-    {
+    public void Lose() {
         scoreText.text = ((int)GameManager.gameManager.score).ToString();
 
         loseMenu.SetActive(true);
         Time.timeScale = 0;
-        if (!hasLost)
-        {
+        if (!hasLost) {
             SetLoseQuote();
         }
         hasLost = true;
@@ -85,8 +73,7 @@ public class UIManager : MonoBehaviour
 }
 
 [System.Serializable]
-class QuotesJson
-{
+class QuotesJson {
     public List<string> qoutes;
 }
 
