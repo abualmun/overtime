@@ -6,13 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private Transform spriteHolder;
+    private CircleCollider2D playerCollider;
     private float h, v;
     public float speed;
 
     public float jumpPower = 1f;
     private float jumpTimer;
 
-    private bool jump, isJumping;
+    public bool jump;
+    public bool isJumping;
     public Vector2 startScreen;
     public Vector2 endScreen;
     private bool isMoving;
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
@@ -57,6 +60,14 @@ public class PlayerController : MonoBehaviour
 
 
         if (jump) Jump();
+        if (isJumping)
+        {
+            playerCollider.enabled = false;
+        }
+        else
+        {
+            playerCollider.enabled = true;
+        }
 
 
     }
@@ -68,7 +79,7 @@ public class PlayerController : MonoBehaviour
             jumpTimer = Time.time;
             isJumping = true;
         }
-        if (jumpTimer + jumpPower >= Time.time)
+        if (jumpTimer + jumpPower < Time.time)
         {
             jump = false;
             isJumping = false;

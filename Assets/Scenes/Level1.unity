@@ -341,7 +341,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteHolder: {fileID: 369955123}
   speed: 3
-  jumpPower: 0
+  jumpPower: 1
+  jump: 0
+  isJumping: 0
   startScreen: {x: -4.4, y: -1.7}
   endScreen: {x: 4.4, y: 5.1}
 --- !u!50 &359706630
