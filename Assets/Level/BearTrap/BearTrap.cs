@@ -18,11 +18,15 @@ public class BearTrap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (player.transform.position.y >= transform.position.y - activationError)
-        // {
-        //     activated = true;
-        // }
-        animator.SetBool("activated", activated);
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            GameManager.gameManager.gameOver = true;
+            animator.SetBool("activated", true);
+        }
     }
 }

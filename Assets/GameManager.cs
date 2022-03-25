@@ -42,9 +42,22 @@ public class GameManager : MonoBehaviour
     {
         gameplayUI.gameObject.SetActive(false);
         gameOverMenu.gameObject.SetActive(true);
+        Time.timeScale = 0;
 
     }
+    void PauseGame()
+    {
 
+        Time.timeScale = 0;
+        pauseGameMenu.gameObject.SetActive(true);
+        gameplayUI.gameObject.SetActive(false);
+    }
+    void Continue()
+    {
+        Time.timeScale = 1;
+        pauseGameMenu.gameObject.SetActive(false);
+        gameplayUI.gameObject.SetActive(true);
+    }
     void RandomInstantiate()
     {
         Vector3 position = platformsParent.position + new Vector3(0, 0, platformLength);
