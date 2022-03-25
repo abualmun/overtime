@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private Transform spriteHolder;
     private CircleCollider2D playerCollider;
+    private Animator animator;
     private float h, v;
     public float speed;
 
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<CircleCollider2D>();
+        animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -40,6 +43,7 @@ public class PlayerController : MonoBehaviour
             jump = true;
 
         }
+
 
     }
 
@@ -78,11 +82,15 @@ public class PlayerController : MonoBehaviour
         {
             jumpTimer = Time.time;
             isJumping = true;
+            animator.SetBool("isJumping", true);
+
         }
         if (jumpTimer + jumpPower < Time.time)
         {
             jump = false;
             isJumping = false;
+            animator.SetBool("isJumping", false);
+
         }
 
 
