@@ -6,14 +6,16 @@ using UnityEngine.UIElements;
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
+
     public bool gameOver;
     public bool gamePaused;
 
     public float score;
     [Header("UI Elements")]
-    [SerializeField] Canvas pauseGameMenu;
-    [SerializeField] Canvas gameplayUI;
-    [SerializeField] Canvas gameOverMenu;
+    [SerializeField] UIManager gameMenu;
+    [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject inGameMenu;
+
     [Header("Gameplay")]
     [SerializeField] List<GameObject> platforms;
     [SerializeField] Transform platformsParent;
@@ -35,29 +37,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!gameOver && !gamePaused)
+        {
+            score += Time.deltaTime * 4;
+        }
+        if (gameOver)
+            gameMenu.Lose();
 
     }
-
-    void LostGame()
+    public void TogglePause()
     {
-        gameplayUI.gameObject.SetActive(false);
-        gameOverMenu.gameObject.SetActive(true);
-        Time.timeScale = 0;
+        pauseMenu.SetActive(gamePaused);
+        inGameMenu.SetActive(!gamePaused);
+        Time.timeScale = (gamePaused ? 0 : 1);
+        gamePaused = !gamePaused;
+    }
 
-    }
-    void PauseGame()
-    {
-
-        Time.timeScale = 0;
-        pauseGameMenu.gameObject.SetActive(true);
-        gameplayUI.gameObject.SetActive(false);
-    }
-    void Continue()
-    {
-        Time.timeScale = 1;
-        pauseGameMenu.gameObject.SetActive(false);
-        gameplayUI.gameObject.SetActive(true);
-    }
     void RandomInstantiate()
     {
         Vector3 position = platformsParent.position + new Vector3(0, 0, platformLength);

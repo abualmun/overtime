@@ -7,14 +7,14 @@ public class InstantObs : MonoBehaviour
     public List<GameObject> obs = new List<GameObject>();
     List<Zone> currentObs = new List<Zone>();
 
-    public float obsCooldown = 0.5f;
+    public float obsCooldown = 1f;
     private float _obsTimer;
     private bool isWaiting;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentObs.Add(Instantiate(obs[Random.Range(0, obs.Count - 1)], new Vector3(Random.Range(-3, 5), Random.Range(18, 30), 0), Quaternion.identity, transform).GetComponent<Zone>());
+        currentObs.Add(Instantiate(obs[Random.Range(0, obs.Count - 1)], new Vector3(Random.Range(-3, 5), Random.Range(18, 50), 0), Quaternion.identity, transform).GetComponent<Zone>());
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class InstantObs : MonoBehaviour
         {
             currentObs.Add(Instantiate(obs[Random.Range(0, obs.Count)], setObs(), Quaternion.identity, transform).GetComponent<Zone>());
             isWaiting = false;
-            if (currentObs.Count >= 10)
+            if (currentObs.Count >= 30)
             {
                 Destroy(currentObs[0].gameObject);
                 currentObs.RemoveAt(0);
@@ -40,27 +40,20 @@ public class InstantObs : MonoBehaviour
 
     Vector3 setObs()
     {
-        Vector3 randomPosition = new Vector3(Random.Range(-3, 5), Random.Range(18, 30), 0);
+        Vector3 randomPosition = new Vector3(Random.Range(-3, 5), Random.Range(18, 70), 0);
+        bool canFit = true;
         foreach (var position in currentObs)
         {
 
-            if (randomPosition.x < position.zone.x || randomPosition.x > position.zone.y)
+
+            if (!(randomPosition.y < position.zone.z || randomPosition.y > position.zone.w))
             {
-                if (randomPosition.y < position.zone.z || randomPosition.y > position.zone.w)
-                {
-                    return randomPosition;
-                }
-                else
-                {
-                    return setObs();
-                }
+                canFit = false;
             }
-            else
-            {
-                return setObs();
-            }
+            if (!canFit) break;
+
         }
-        return randomPosition;
+        return (canFit) ? randomPosition : setObs();
     }
 
 }
