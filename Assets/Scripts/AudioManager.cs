@@ -6,9 +6,6 @@ using UnityEngine.Networking;
 using Files = SimpleFileBrowser.FileBrowser;
 
 public class AudioManager : MonoBehaviour {
-
-    public List<Sound> sounds;
-
     private float audioValue;
     private static AudioClip clip;
 
@@ -18,10 +15,12 @@ public class AudioManager : MonoBehaviour {
 
     public void AssignAudioProcessor(AudioProcessor audioProcessor) {
         audioProcessor.onSpectrum.AddListener(onSpectrum);
-        audioProcessor.GetComponent<AudioSource>().clip = clip;
+        if (clip != null)
+            audioProcessor.GetComponent<AudioSource>().clip = clip;
     }
 
-    void Update() { }
+    void Update() {
+    }
 
     public float GetValue(float min = 0, float max = 1) {
         return min + audioValue * (max - min);
@@ -56,7 +55,6 @@ public class AudioManager : MonoBehaviour {
         // enum to sound(sound)
         // Play sound
     }
-
 }
 
 [System.Serializable]
