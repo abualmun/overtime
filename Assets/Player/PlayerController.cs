@@ -6,15 +6,17 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private Transform spriteHolder;
-    private float h;
+    private float h, v;
     public float speed;
-    public float acceleration;
-    public float jumpPower;
-    public bool isGrounded;
+
+    public float jumpPower = 1f;
+    private float jumpTimer;
+
+    private bool jump, isJumping;
+    public Vector2 startScreen;
+    public Vector2 endScreen;
     private bool isMoving;
-    private bool jump;
-    public float groundCheck;
-    public float gravity = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,51 +26,54 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isMoving = (Input.GetAxisRaw("Horizontal") != 0);
-        jump = (isGrounded && Input.GetKey(KeyCode.UpArrow));
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, groundCheck);
-        if (hit)
-        {
-            isGrounded = (hit.collider.tag == "Ground");
-        }
-        else
-        {
-            isGrounded = false;
-        }
+        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
 
-        if (!isGrounded) rb.drag = 0;
 
+        isMoving = h != 0 || v != 0;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jump = true;
+
+        }
 
     }
 
     private void FixedUpdate()
     {
-        if (isMoving)
-        {
-            h = Input.GetAxisRaw("Horizontal");
-            if (Mathf.Abs(rb.velocity.x) <= speed)
-            {
-                Vector2 force = new Vector2(h * acceleration, 0);
-                rb.AddForce(force);
-            }
 
-            rb.gravityScale = 9.8f * gravity;
-            if (jump)
-            {
-                Jump();
-            }
-            if (rb.velocity.y <= 1) gravity = 1;
+        if (!isJumping && isMoving)
+        {
+            rb.velocity = new Vector2(h * speed, v * speed);
         }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+
+
+
+
+        if (jump) Jump();
+
 
     }
 
     void Jump()
     {
-        gravity = 0;
-        rb.gravityScale = 9.8f * gravity;
-        Vector2 force = new Vector2(0, jumpPower);
+        if (!isJumping)
+        {
+            jumpTimer = Time.time;
+            isJumping = true;
+        }
+        if (jumpTimer + jumpPower >= Time.time)
+        {
+            jump = false;
+            isJumping = false;
+        }
 
-        rb.AddForce(force);
-        jump = false;
+
     }
 }
