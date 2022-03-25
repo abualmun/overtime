@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: b2b461692c625e7bea52954dd56eb45f
   - enabled: 1
-    path: Assets/Scenes/AudioTest.unity
-    guid: fbf02c1cedb436763931e70b32f33627
+    path: Assets/Scenes/Level1.unity
+    guid: 3af1521b510f6c77a8eadfd00866f777
   m_configObjects: {}

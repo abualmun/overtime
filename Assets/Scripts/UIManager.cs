@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public TMP_Text scoreText;
-    public TMP_Text maxScoreText;
     public TMP_Text loseQuote;
+    public TMP_Text loseScore;
     public GameObject loseMenu;
     private bool hasLost;
 
@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
         Input.backButtonLeavesApp = false;
         SceneManager.LoadScene("Level1"); // TODO: change it to scene name
         Time.timeScale = 1;
+        GameManager.gameManager.gameOver = false;
     }
 
     public void Pause()
@@ -64,6 +65,8 @@ public class UIManager : MonoBehaviour
 
     public void SetLoseQuote()
     {
+        loseScore.text = ((int)GameManager.gameManager.score).ToString();
+
         loseQuote.text = Quoutes.GetRandomQuote();
     }
     public void Lose()
