@@ -19,20 +19,30 @@ public class GameManager : MonoBehaviour {
     [SerializeField] List<GameObject> platforms;
     [SerializeField] Transform platformsParent;
     public float platformLength;
+    public float speed;
 
+    private float minSpeed = 0.05f;
+    private float maxSpeed = 0.15f;
+    private float startTime;
+    private InstantObs obs;
 
 
 
     private void Awake() {
         gameManager = this;
     }
-    // Start is called before the first frame update
-    void Start() {
 
+    void Start() {
+        obs = FindObjectOfType<InstantObs>();
+        speed = minSpeed;
     }
 
-    // Update is called once per frame
     void Update() {
+        speed = minSpeed + (maxSpeed - minSpeed) * ((Time.time - startTime) / 120);
+        speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
+        obs.obsCooldown = 7 - ((speed / (maxSpeed - minSpeed)) * 6);
+        Debug.Log($"speed is: {speed}, time is {Time.time}");
+
         if (!gameOver && !gamePaused) {
             score += Time.deltaTime * 4;
         }

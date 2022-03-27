@@ -13,13 +13,15 @@ public class UIManager : MonoBehaviour {
 
     void Start() {
         Input.backButtonLeavesApp = true;
+        Time.timeScale = 1;
     }
 
 
     void Update() {
         // update Score
 
-        scoreText.text = ((int)GameManager.gameManager.score).ToString();
+        if (scoreText != null)
+            scoreText.text = ((int)GameManager.gameManager.score).ToString();
     }
 
     public void Play() {

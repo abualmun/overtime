@@ -406,7 +406,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359706627}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -1140,6 +1140,7 @@ MonoBehaviour:
   platforms: []
   platformsParent: {fileID: 0}
   platformLength: 0
+  speed: 0
 --- !u!4 &889140376
 Transform:
   m_ObjectHideFlags: 0
