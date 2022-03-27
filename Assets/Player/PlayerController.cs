@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb;
     [SerializeField] private Transform spriteHolder;
     private CircleCollider2D playerCollider;
@@ -19,80 +18,56 @@ public class PlayerController : MonoBehaviour
     public Vector2 startScreen;
     public Vector2 endScreen;
     private bool isMoving;
+    private GameManager manager;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    void Start() {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
-
+        manager = GameManager.gameManager;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+
+    void Update() {
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
-
+        speed = 5 + (manager.speed / manager.maxSpeed) * 5;
 
         isMoving = h != 0 || v != 0;
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+        if (Input.GetKeyDown(KeyCode.Space)) {
             jump = true;
-
         }
-
-
     }
 
-    private void FixedUpdate()
-    {
-
-        if (!isJumping && isMoving)
-        {
+    private void FixedUpdate() {
+        if (!isJumping && isMoving) {
             rb.velocity = new Vector2(h * speed, v * speed);
-        }
-        else
-        {
+        } else {
             rb.velocity = Vector2.zero;
         }
 
-
-
-
-
         if (jump) Jump();
-        if (isJumping)
-        {
+
+        if (isJumping) {
             playerCollider.enabled = false;
-        }
-        else
-        {
+        } else {
             playerCollider.enabled = true;
         }
-
-
     }
 
-    void Jump()
-    {
-        if (!isJumping)
-        {
+    void Jump() {
+        if (!isJumping) {
             jumpTimer = Time.time;
             isJumping = true;
             animator.SetBool("isJumping", true);
-
         }
-        if (jumpTimer + jumpPower < Time.time)
-        {
+
+        if (jumpTimer + jumpPower < Time.time) {
             jump = false;
             isJumping = false;
             animator.SetBool("isJumping", false);
-
         }
-
-
     }
 }

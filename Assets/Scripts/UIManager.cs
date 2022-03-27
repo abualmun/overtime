@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour {
         SceneManager.LoadScene("Level1"); // TODO: change it to scene name
         Time.timeScale = 1;
         GameManager.gameManager.gameOver = false;
+        GameManager.gameManager.speed = GameManager.gameManager.minSpeed;
     }
 
     public void Pause() {

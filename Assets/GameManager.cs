@@ -21,8 +21,10 @@ public class GameManager : MonoBehaviour {
     public float platformLength;
     public float speed;
 
-    private float minSpeed = 0.05f;
-    private float maxSpeed = 0.15f;
+    [HideInInspector]
+    public float minSpeed = 0.05f;
+    [HideInInspector]
+    public float maxSpeed = 0.15f;
     private float startTime;
     private InstantObs obs;
 
@@ -35,13 +37,13 @@ public class GameManager : MonoBehaviour {
     void Start() {
         obs = FindObjectOfType<InstantObs>();
         speed = minSpeed;
+        startTime = Time.time;
     }
 
     void Update() {
         speed = minSpeed + (maxSpeed - minSpeed) * ((Time.time - startTime) / 120);
         speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
         obs.obsCooldown = 7 - ((speed / (maxSpeed - minSpeed)) * 6);
-        Debug.Log($"speed is: {speed}, time is {Time.time}");
 
         if (!gameOver && !gamePaused) {
             score += Time.deltaTime * 4;
